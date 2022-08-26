@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>CodeBusters</title>
+  <meta content="" name="description">
+
+  <meta content="" name="keywords">
+  <!-- bootstrap css -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">  <!-- Favicons -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  
+  {% load static %}
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+  <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+  <link href='https://unpkg.com/boxicons@2.1.2/dist/boxicons.js' rel='stylesheet'>
+  
+
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+  <style>
+   .signin{
+    filter: blur(20px);
+    pointer-events: none;
+    user-select: none;
+  }
+  #popup{
+      position:fixed;
+      top:40%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      width: auto;
+      padding: 60px;
+      box-shadow:0 5px 30px rgba(0, 0, 0, 30);
+      background: #fefefe;
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.5s;
+  }
+
+  #popup.blur{
+    top:50%;
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s;
+   
+  }
+/* ---------------------------------- */
+ .popup .container{
+    display: grid;
+    grid-template-rows: repeat(auto-fill,minmax(20px,1fr));
+    grid-gap: 50px;
+ }
+
+ .signll{
+  width: 100%; 
+  padding: 12px 20px; 
+  margin: 8px 0; 
+  display: inline-block; 
+  border: 1px solid #ccc; 
+  box-sizing: border-box;
+ }
+ .loginbtn{
+  background-color:#94cc33
+ }
+ .popup h1{margin: 8px 36%; 
+background-color:white;}
+ 
+
+/*set the display image inside the container*/
+.imgcontainer{
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+/*set image properties*/
+img.avatar{
+    width: 30%;
+    height:auto;
+    border-radius: 50%;
+    border: 8px solid #edebec;
+}
+.inner-area img{
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+ 
+ .popup .modal-content{
+    background-color: #fefefe;
+    margin:  5% auto 15% auto;  
+ 
+    border: 1px solid #888;
+    width: 400px;
+    border: 6px solid #edebec;
+}
+  .popup button{
+     background-color: #4caf50;
+     color: white;
+     padding: 14px 20px;
+     margin: 8px 0;
+     border: none;
+     cursor: pointer;
+     width: 100%;
+ }
+ /* set a hover effect for the button*/
+ .popup  button:hover{
+     opacity: 0.8;
+ }
+
+  </style>
+</head>
+
+<body>
+  <div class="container" id="blur">
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top">
+    <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="{% static 'assets/img/logo.png' %}" alt="">
+        <span>CodeBuster</span>
+      </a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+          <!-- <li><a href="#">About Us</a></li> -->
+          <li><a class="nav-link scrollto" href="#features">Resourses</a></li>
+          <li><a class="nav-link scrollto" href="#recent-blog-posts">Community</a></li> 
+          <li><a class="nav-link scrollto" href="{% url 'career' %}">Opportunities</a></li>
+          <!-- <li><a class="nav-link scrollto" href="#about">Our Courses</a></li> -->
+          <li class="dropdown"><a href="#"><span>Our Courses</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="{% url 'javaR' %}">Java</a></li>
+              <li><a href="{% url 'pythonR' %}">Python</a></li>
+              <li><a href="{% url 'C_langR' %}">C++</a></li>
+              <li class="dropdown"><a href="#"><span>Web Development</span> <i class="bi bi-chevron-right"></i></a>
+                <ul>
+                  <li><a href="{% url 'frontendR' %}">Front-End</a></li>
+                  <li><a href="{% url 'backendR' %}">Back-End</a></li>
+                  <!-- <li><a href="#">Deep Drop Down 3</a></li>
+                  <li><a href="#">Deep Drop Down 4</a></li>
+                  <li><a href="#">Deep Drop Down 5</a></li> -->
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <!---------------------------- sign in feature  ------------------------------------------->
+          <li>
+            {% if username is None and user.is_authenticated%}
+            <a class="getstarted" href="#" >{{user.username}}</a>
+            {% elif user.is_authenticated %}     
+              <a class="getstarted" href="#" >{{username}}</a>
+            {% else %}            
+            <a class="getstarted" href="#" onClick="toggle_sign_in()">Sign In </a>
+            {% endif %}
+
+          </li>
+          <!------------------------ XX  signin feature  XX ------------------------------------------>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="hero d-flex align-items-center">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 d-flex flex-column justify-content-center">
+          <h1 data-aos="fade-up">Kickstart your</h1>
+          <h1 data-aos="fade-up" class="h1-second" style="
+          color: #5848ea;">Coding Career in Minutes</h1>
+          <h2 data-aos="fade-up" data-aos-delay="400">Learn from free unlimited resourses & seniors guidance</h2>
+          <div data-aos="fade-up" data-aos-delay="600">
+            <div class="text-center text-lg-start">
+              <a href="#about" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+                <span>Start Learning</span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
+          <img src="{% static 'assets/img/home-img-1.png' %}" class="img-fluid" alt="">
+          <img src="{% static 'assets/img/home-element-1.png' %}" class="img-fluid home-element animation-1" alt="">
+          <img src="{% static 'assets/img/home-element-2.png' %}" class="img-fluid home-element animation-2" alt="">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+
+  <main id="main">
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+
+      <div class="container" data-aos="fade-up">
+        <div class="row gx-0">
+
+          
+          <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+           
+            <video class="img-fluid" src="{% static 'assets/img/intro.mkv'%}" style="border-radius: 15px;" controls></video>
+          </div>
+          <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
+            <div class="content">
+              <h3>About our journey </h3>
+              <h2>Expedita voluptas omnis cupiditate totam eveniet nobis sint iste. Dolores est repellat corrupti reprehenderit.</h2>
+              <p>
+                Quisquam vel ut sint cum eos hic dolores aperiam. Sed deserunt et. Inventore et et dolor consequatur itaque ut voluptate sed et. Magnam nam ipsum tenetur suscipit voluptatum nam et est corrupti.
+              </p>
+              <div class="text-center text-lg-start">
+                <a href="#" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
+                  <span>Read More</span>
+                  <i class="bi bi-arrow-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </section><!-- End About Section -->
+ 
+    <!-- ======= Features Section ======= -->
+    <section id="features" class="features">
+
+      <div class="container" data-aos="fade-up">
+
+        <header class="section-header">
+          <p>Explore learning paths 🔥</p>
+          <br>
+          <h2>Begin the journey for your dream job with these industry vetted learning paths..</h2>
+          
+        </header>
+
+        <div>
+
+          <div class="col-lg-12 mt-5 mt-lg-2 d-flex">
+            <div class="row align-self-center gy-4">
+
+              <div class="col-md-3 data-aos="zoom-out" data-aos-delay="200">
+                <div class="feature-box d-flex align-items-center">
+                  <img class="explore-icons" src="{% static 'assets/img/icons/python.png' %}" alt="">
+                  {% if user.is_authenticated %}
+                  <a href="{% url 'pythonR'%}"><h3>Python</h3></a>
+                  {% else %}
+                  <a href="#" onClick="toggle_sign_in()"><h3>Python</h3></a>
+                  {% endif %}
+                  
+                </div>
+              </div>
+
+              <div class="col-md-3" data-aos="zoom-out" data-aos-delay="300">
+                <div class="feature-box d-flex align-items-center">
+                  <a href="{% url 'javaR' %}"><img class="explore-icons" src="{% static 'assets/img/icons/java.png' %}" alt=""></a>
+                  {% if user.is_authenticated %} 
+                  <a href="{% url 'javaR' %}"><h3>Java</h3></a>
+                  {% else %}
+                  <a href="#" onClick="toggle_sign_in()"><h3>Java</h3></a>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="col-md-3" data-aos="zoom-out" data-aos-delay="400">
+                <div class="feature-box d-flex align-items-center">
+                  <img class="explore-icons" src="{% static 'assets/img/icons/c++.png' %}" alt="">
+                  {% if user.is_authenticated %}
+                  <a href="{% url 'C_langR' %}"><h3>C++</h3></a>
+                  {% else %}
+                  <a href="#" onClick="toggle_sign_in()"><h3>C++</h3></a>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="col-md-3" data-aos="zoom-out" data-aos-delay="500">
+                <div class="feature-box d-flex align-items-center">
+                  <img class="explore-icons" src="{% static 'assets/img/icons/full-stack.png' %}" alt="">
+                  {% if user.is_authenticated %}
+                  <a href="#"><h3>Full Stack</h3></a>
+                  {% else %}
+                  <a href="#" onClick="toggle_sign_in()" ><h3>Full Stack</h3></a>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="col-md-3" data-aos="zoom-out" data-aos-delay="600">
+                <div class="feature-box d-flex align-items-center">
+                  <img class="explore-icons" src="{% static 'assets/img/icons/html-5.png' %}" alt="">
+                  {% if user.is_authenticated %}
+                  <a href="{% url 'frontendR' %}"><h3>Front-End</h3></a>
+                  {% else %}
+                  <a href="#" onClick="toggle_sign_in()" ><h3>Front-End</h3></a>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="col-md-3" data-aos="zoom-out" data-aos-delay="700">
+                <div class="feature-box d-flex align-items-center">
+                  <img class="explore-icons" src="{% static 'assets/img/icons/nodejs.png' %}" alt="">
+                  {% if user.is_authenticated %}
+                  <a href="{% url 'backendR' %}"><h3>Back-End</h3></a>
+                  {% else %}
+                  <a href="#" onClick="toggle_sign_in()"><h3>Back-End</h3></a>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-md-3" data-aos="zoom-out" data-aos-delay="700">
+                <div class="feature-box d-flex align-items-center">
+                  <img class="explore-icons" src="{% static 'assets/img/icons/ai.png' %}" alt="">
+                  {% if user.is_authenticated %}
+                  <a href="#"><h3>Artificial Intelligence</h3></a>
+                  {% else %}
+                  <a href="#" onClick="toggle_sign_in()"><h3>Artificial Intelligence</h3></a>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-md-3" data-aos="zoom-out" data-aos-delay="700">
+                <div class="feature-box d-flex align-items-center">
+                  <img class="explore-icons" src="{% static 'assets/img/icons/data-science.png' %}" alt="">
+                  {% if user.is_authenticated %}
+                  <a href="#"><h3>Data Science</h3></a>
+                  {% else %}
+                  <a href="#" onClick="toggle_sign_in()"><h3>Data Science</h3></a>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-md-3" data-aos="zoom-out" data-aos-delay="700">
+                <div class="feature-box d-flex align-items-center">
+                  <img class="explore-icons" src="{% static 'assets/img/icons/neural-network.png' %}" alt="">
+                  {% if user.is_authenticated %}
+                  <a href="#"><h3>Machine Learning</h3></a>
+                  {% else %}
+                  <a href="#" onClick="toggle_sign_in()"><h3>Machine Learning</h3></a>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-md-3" data-aos="zoom-out" data-aos-delay="700">
+                <div class="feature-box d-flex align-items-center">
+                  <img class="explore-icons" src="{% static 'assets/img/icons/internet-of-things.png' %}" alt="">
+                  {% if user.is_authenticated %}
+                  <a href="#"><h3>Internet Of Things</h3></a>
+                  {% else %}
+                  <a href="#" onClick="toggle_sign_in()"><h3>Internet Of Things</h3></a>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-md-3" data-aos="zoom-out" data-aos-delay="700">
+                <div class="feature-box d-flex align-items-center">
+                  <img class="explore-icons" src="{% static 'assets/img/icons/cyber.png' %}" alt="">
+                  {% if user.is_authenticated %}
+                  <a href="#"><h3>Cyber Security</h3></a>
+                  {% else %}
+                  <a href="#" onClick="toggle_sign_in()"><h3>Cyber Security</h3></a>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-md-3" data-aos="zoom-out" data-aos-delay="700">
+                <div class="feature-box d-flex align-items-center">
+                  <img class="explore-icons" src="{% static 'assets/img/icons/android.png' %}" alt="">
+                  {% if user.is_authenticated %}
+                  <a href="#"><h3>Android Development</h3></a>
+                  {% else %}
+                  <a href="#" onClick="toggle_sign_in()"><h3>Android Development</h3></a>
+                  {% endif %}
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div> <!-- / row -->
+
+
+        <section id="values" class="values">
+
+          <div class="container" data-aos="fade-up">
+    
+            <header class="section-header">
+              <p>Events</p>
+              <br>
+              <h2>Participate In Upcoming Events & Win Exciting Goodies.</h2>
+            </header>
+    
+            <div class="row">
+    
+              <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="box">
+                  <img src="{% static 'assets/img/values-1.png' %}" class="img-fluid" alt="">
+                  <h3>Pycathon</h3>
+                </div>
+              </div>
+    
+              <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
+                <div class="box">
+                  <img src="{% static 'assets/img/values-2.png' %}" class="img-fluid" alt="">
+                  <h3>Git & Github Workshop</h3>
+                </div>
+              </div>
+    
+              <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
+                <div class="box">
+                  <img src="{% static 'assets/img/values-3.png' %}" class="img-fluid" alt="">
+                  <h3>Web-3 BootCamp</h3>
+                </div>
+              </div>
+    
+            </div>
+    
+          </div>
+    
+        </section>
+
+        <!-- Events end -->
+
+      </div>
+
+    </section><!-- End Features Section -->
+      <!-- ======= Services Section ======= -->
+    <section id="services" class="services">
+
+      <div class="container" data-aos="fade-up">
+
+        <header class="section-header">
+          <h2>Advantages</h2>
+          <p>CodeBuster Club Advantages</p>
+        </header>
+
+        <div class="row gy-4">
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+            <div class="service-box blue">
+              <img src="{% static 'assets/img/advantages_icons/competition.png' %}" class="icon" alt="">
+              <h3>Competitive environmemt</h3>
+              <p>Provident nihil minus qui consequatur non omnis maiores. Eos accusantium minus dolores iure perferendis tempore et consequatur.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-box orange">
+              <img src="{% static 'assets/img/advantages_icons/learning.png' %}" class="icon" alt="">
+              <h3>Great learning</h3>
+              <p>Ut autem aut autem non a. Sint sint sit facilis nam iusto sint. Libero corrupti neque eum hic non ut nesciunt dolorem.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+            <div class="service-box green">
+              <img src="{% static 'assets/img/advantages_icons/mentors.png' %}" class="icon" alt="">
+              <h3>Freindly Mentors</h3>
+              <p>Ut excepturi voluptatem nisi sed. Quidem fuga consequatur. Minus ea aut. Vel qui id voluptas adipisci eos earum corrupti.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+            <div class="service-box red">
+              <img src="{% static 'assets/img/advantages_icons/weekly_events.png' %}" class="icon" alt="">
+              <h3>Weekly Events</h3>
+              <p>Non et temporibus minus omnis sed dolor esse consequatur. Cupiditate sed error ea fuga sit provident adipisci neque.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+            <div class="service-box purple">
+              <img src="{% static 'assets/img/advantages_icons/cheatsheet.png' %}" class="icon" alt="">
+              <h3>Available CheatSheets</h3>
+              <p>Cumque et suscipit saepe. Est maiores autem enim facilis ut aut ipsam corporis aut. Sed animi at autem alias eius labore.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="700">
+            <div class="service-box pink">
+              <img src="{% static 'assets/img/advantages_icons/resources.png' %}" class="icon" alt="">
+              <h3>Free Resources</h3>
+              <p>Hic molestias ea quibusdam eos. Fugiat enim doloremque aut neque non et debitis iure. Corrupti recusandae ducimus enim.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- End Services Section -->
+
+    <!-- ======= Recent Blog Posts Section ======= -->
+    <section id="recent-blog-posts" class="recent-blog-posts">
+
+      <div class="container" data-aos="fade-up">
+
+        <header class="section-header">
+          <h2>Community</h2>
+          <p>Connect With Us</p>
+        </header>
+
+        <div class="row" style="justify-content:center;align-items: center;">
+          <div class="col-lg-4" style="align-self:center;align-items:center">
+            <div class="post-box">
+              <iframe src="https://discordapp.com/widget?id=1002183581323497502&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- End Recent Blog Posts Section -->
+
+    <!-- ======= F.A.Q Section ======= -->
+    <section id="faq" class="faq">
+
+      <div class="container" data-aos="fade-up">
+
+        <header class="section-header">
+          <h2>F.A.Q</h2>
+          <p>Frequently Asked Questions</p>
+        </header>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <!-- F.A.Q List 1-->
+            <div class="accordion accordion-flush" id="faqlist1">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-1">
+                    Non consectetur a erat nam at lectus urna duis?
+                  </button>
+                </h2>
+                <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                  <div class="accordion-body">
+                    Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-2">
+                    Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque?
+                  </button>
+                </h2>
+                <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                  <div class="accordion-body">
+                    Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-3">
+                    Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi?
+                  </button>
+                </h2>
+                <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                  <div class="accordion-body">
+                    Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+
+            <!-- F.A.Q List 2-->
+            <div class="accordion accordion-flush" id="faqlist2">
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-1">
+                    Ac odio tempor orci dapibus. Aliquam eleifend mi in nulla?
+                  </button>
+                </h2>
+                <div id="faq2-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
+                  <div class="accordion-body">
+                    Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-2">
+                    Tempus quam pellentesque nec nam aliquam sem et tortor consequat?
+                  </button>
+                </h2>
+                <div id="faq2-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
+                  <div class="accordion-body">
+                    Molestie a iaculis at erat pellentesque adipiscing commodo. Dignissim suspendisse in est ante in. Nunc vel risus commodo viverra maecenas accumsan. Sit amet nisl suscipit adipiscing bibendum est. Purus gravida quis blandit turpis cursus in
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2-content-3">
+                    Varius vel pharetra vel turpis nunc eget lorem dolor?
+                  </button>
+                </h2>
+                <div id="faq2-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
+                  <div class="accordion-body">
+                    Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus faucibus. Nibh tellus molestie nunc non blandit massa enim nec.
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- End F.A.Q Section -->
+
+
+
+    <!-- ======= Team Section ======= -->
+    <section id="team" class="team">
+
+      <div class="container" data-aos="fade-up">
+
+        <header class="section-header">
+          <h2>Team</h2>
+          <p>Our team</p>
+        </header>
+
+        <div class="row gy-4">
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
+            <div class="member">
+              <div class="member-img">
+                <img src="{% static 'assets/img/team/prateek.jpg' %}" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Prateek Kumar Singh</h4>
+                <span>Chief Executive Officer</span>
+                <p>Velit aut quia fugit et et. Dolorum ea voluptate vel tempore tenetur ipsa quae aut. Ipsum exercitationem iure minima enim corporis et voluptate.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
+            <div class="member">
+              <div class="member-img">
+                <img src="{% static 'assets/img/team/neha.jpg' %}" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Neha Ojha</h4>
+                <span>Product Manager</span>
+                <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis. Voluptate sed quas reiciendis animi neque sapiente.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="member">
+              <div class="member-img">
+                <img src="{% static 'assets/img/team/rudra.jpg' %}" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Rudra Pratap</h4>
+                <span>CTO</span>
+                <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt. Voluptates enim aut architecto porro aspernatur molestiae modi.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="member">
+              <div class="member-img">
+                <img src="{% static 'assets/img/team/rudra.jpg' %}" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Rudra Pratap</h4>
+                <span>CTO</span>
+                <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt. Voluptates enim aut architecto porro aspernatur molestiae modi.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
+            <div class="member">
+              <div class="member-img">
+                <img src="{% static 'assets/img/team/rudra.jpg' %}" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Rudra Pratap</h4>
+                <span>CTO</span>
+                <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt. Voluptates enim aut architecto porro aspernatur molestiae modi.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
+            <div class="member">
+              <div class="member-img">
+                <img src="{% static 'assets/img/team/rishab.jpg' %}" class="img-fluid" alt="">
+                <div class="social">
+                  <a href=""><i class="bi bi-twitter"></i></a>
+                  <a href=""><i class="bi bi-facebook"></i></a>
+                  <a href=""><i class="bi bi-instagram"></i></a>
+                  <a href=""><i class="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div class="member-info">
+                <h4>Rishab Satlani</h4>
+                <span>Accountant</span>
+                <p>Rerum voluptate non adipisci animi distinctio et deserunt amet voluptas. Quia aut aliquid doloremque ut possimus ipsum officia.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- End Team Section -->
+
+
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+
+      <div class="container" data-aos="fade-up">
+
+        <header class="section-header">
+          <h2>Contact</h2>
+          <p>Contact Us</p>
+        </header>
+
+        <div class="row gy-4">
+
+          <div class="col-lg-6">
+
+            <div class="row gy-4">
+              <div class="col-md-6">
+                <div class="info-box">
+                  <i class="bi bi-geo-alt"></i>
+                  <h3>Address</h3>
+                  <p>A108 Adam Street,<br>New York, NY 535022</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="info-box">
+                  <i class="bi bi-telephone"></i>
+                  <h3>Call Us</h3>
+                  <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="info-box">
+                  <i class="bi bi-envelope"></i>
+                  <h3>Email Us</h3>
+                  <p>info@example.com<br>contact@example.com</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="info-box">
+                  <i class="bi bi-clock"></i>
+                  <h3>Open Hours</h3>
+                  <p>Monday - Friday<br>9:00AM - 05:00PM</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="col-lg-6">
+            <form action="forms/contact.php" method="post" class="php-email-form">
+              <div class="row gy-4">
+
+                <div class="col-md-6">
+                  <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                </div>
+
+                <div class="col-md-6 ">
+                  <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+                </div>
+
+                <div class="col-md-12">
+                  <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+                </div>
+
+                <div class="col-md-12">
+                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
+                </div>
+
+                <div class="col-md-12 text-center">
+                  <div class="loading">Loading</div>
+                  <div class="error-message"></div>
+                  <div class="sent-message">Your message has been sent. Thank you!</div>
+
+                  <button type="submit">Send Message</button>
+                </div>
+
+              </div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+
+   
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-5 col-md-12 footer-info">
+            <a href="index.html" class="logo d-flex align-items-center">
+              <img src="{% static 'assets/img/logo.png'%}" alt="">
+              <span>CodeBuster</span>
+            </a>
+            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+            <div class="social-links mt-3">
+              <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+              <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+              <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+              <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+
+          <div class="col-lg-2 col-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-2 col-6 footer-links">
+            <h4>Our Courses</h4>
+            <ul>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">Java</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">Python</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">Web development</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">C++</a></li>
+              <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>CodeBuster</span></strong>. All Rights Reserved
+      </div>
+      
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  </div>
+<div id="popup">
+    
+  <!-------------------- Sign_in box --------------------->
+  <form action="{% url 'signin'%}" method="POST" class="modal-content animate">
+        {% csrf_token %}
+			<div class="imgcontainer"> 
+        <a class="getstarted" href="#" onClick="toggle_sign_in()"><i class='bx bx-cross bx-tada bx-rotate-270' 
+          style=" 
+            font-size: 20px;  
+            position: fixed;
+            display: flex;
+            align-items: flex-end;
+            left: 80%;
+            top: 4%;
+            border: 3px dashed #b1a5d4;
+            border-radius: 50%;">
+            </i> </a>
+            <img src= "{% static 'assets/img/team/user.png' %}" alt="Avatar" class="avatar"> 
+			</div> 
+
+				<label><b>Username</b></label> 
+				<input type="text" class="signll" placeholder="Enter Username" name="username" required> 
+
+				<label><b>Password</b></label> 
+				<input type="password" class="signll" placeholder="Enter Password" name="password" required> 
+
+				<button type="submit" class="signll loginbtn" value="Sign In">Login</button> 
+        <div class="signup" style="display: grid;grid-template-columns: max-content;">
+          <span>
+            Create an account <a href="{% url 'signup' %}">Sign Up</a>
+          </span>
+        </div>
+		</form> 
+
+    
+  </div>
+  <!-- Vendor JS Files -->
+        
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+        
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+        
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+        
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+        
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+        
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+        
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+        
+  <script src="{% static 'assets/js/main.js' %}"></script>
+
+  <!-- Bootstrap js script -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
+  
+  
+  <script>
+    // sign in pop over
+    
+    function toggle_sign_in(){
+      var blur =document.getElementById('blur');
+      blur.classList.toggle('signin');
+      var popup =document.getElementById('popup');
+      popup.classList.toggle('blur');
+    }
+    {% if user.is_authenticated %}
+    alert("Login Sucessful");
+    {% endif %}
+
+  </script>
+</body>
+
+</html>

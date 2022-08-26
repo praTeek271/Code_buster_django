@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+
+    <title>Sign Up</title> 
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+       
+        *{
+            margin: 0;
+            padding:0;
+            box-sizing: border-box;
+            
+        }
+
+        body{
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            gap: 30px;
+            background: #2c3338;
+
+
+        }
+
+        .inputbox{
+            position: relative;
+            width: 250px;
+            padding-top: 8px;
+            padding-bottom: 10px;
+            font-family:'Poppins', sans-serif;
+        }
+
+        .inputbox input{
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(255,255,255,0.25);
+            border-radius: 5px;
+            outline: none;
+            color: rgba(255, 255, 255, 0.79);
+            font-size: 1em;
+            background: transparent;
+            font-family:'Poppins', sans-serif;
+        }
+
+        .inputbox span{
+            position: absolute;
+            left: 0;
+            padding:10px;
+            pointer-events:none;
+            font-size:1em;
+            color:rgba(255, 255, 255, 0.25);
+            text-transform:uppercase;
+            transition: 0.5s;
+            font-family:'Poppins', sans-serif;
+        }
+        .inputbox input:valid ~ span,
+        .inputbox input:focus ~ span{
+            color: #ea4c88;
+            transform: translateX(10px) translateY(-7px);
+            font-size: 0.65em;
+            padding: 0 11px;
+            background: #2c3338;
+            border-left: 1px solid #ea4c88;
+            border-right: 1px solid #ea4c88;
+        }
+
+        .inputbox input:valid,
+        .inputbox input:focus{
+            border: 1px solid #ea4c88;
+        }
+        .container{
+            border: 3px dashed #56606b5e;
+        }
+        .sign-box{
+            padding: 8px;
+        }
+        .sign_heading{
+            align-items:center;
+            
+            font-family: 'Indie Flower', cursive;
+            font-size: 58px;
+            color: #56c371a1;
+        }
+        .form input[type="password"],
+        .form input[type="text"],
+        .form input[type="submit"] {
+        inline-size: 100%;
+        }
+        .sign_up input[type="submit"] {
+        background-color: #ea4c88;
+        color: #eee;
+        font-weight: 700;
+        position: relative;
+        width: 250px;
+        height: 45px;
+        border-radius: 12px;
+        margin-top: 8px;
+        border: 2px solid transparent;
+        }
+        .sign-box input[type="submit"]:focus,
+        .sign-box input[type="submit"]:hover,
+        .sign-box input[type="submit"]:active{
+            text-transform: uppercase;
+            border: 2px solid #3c434a;
+        }
+
+    </style>
+</head>
+<body>
+    <!--------------------------------------- Sign Up -------------------------------------------------->
+    {% for message in messages %}
+    <div class="alert alert-{{message.tags}} alert-dissmissible fade show" role="alert">
+    <strong>Message: </strong>{{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-lable="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    {% endfor%}
+    <h2 class="sign_heading">SignUp</h2>
+    <div class="container">
+        <div class="sign-box grid">
+            <form action="{% url 'signup'%}" method="post">
+                {% csrf_token %}
+                <div class="inputbox">
+                    <input id="login__username" type="text" name="username" class="form__input"  required>
+                    <span><label for="login__username">Username</label></span>
+                </div>
+
+                <div class="inputbox">
+                    <input id="login__firstname" type="text" name="firstname" class="form__input" required>
+                    <span><label for="login__firstname">First Name</label></span>
+                </div>
+
+                
+                <div class="inputbox">
+                    <input id="login__lastname" type="text" name="lastname" class="form__input" required>
+                    <span><label for="login__lastname">Last Name</label></span>
+                </div>
+
+                
+                <div class="inputbox">
+                    <input  id="login__email" type="email" name="email" class="form__input" required>
+                    <span><label for="login__email">Email Id</label></span>
+                </div>
+
+                
+                <div class="inputbox">
+                    <input  id="login__number" type="number" name="phoneno" class="form__input" required>
+                    <span><label for="login__number">Whatsapp No</label></span>
+                </div>
+
+                
+                
+                <div class="inputbox">
+                    <input id="myInput" type="password" name="password"  required>
+                    <span><label for="login__password">Password</label></span>
+                </div>
+
+                <div class="inputbox">
+                    <input id="myInput2" type="password" name="confirm_password"  required>
+                    <span><label for="login__cpassword">Confirm Password</label></span>    
+                </div>
+                    <span id='message'></span>
+                
+                <label for="show_pswd" class="inputbox">Show Password</label>
+                <input type="checkbox" id="show_pswd" onclick="myFunction()">
+                <br>
+                <div class="sign_up">
+                    <input type="submit" value="Sign In">                    
+                  </div>
+            </form>
+        </div>
+    </div>
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("myInput");
+            var y = document.getElementById("myInput2");
+            if (x.type === "password") {
+                x.type = "text";
+                y.type = "text";
+            } else {
+                x.type = "password";
+                y.type = "password";
+            }
+        }
+        $('#myInput, #myInput2').on('keyup', function () {
+            if ($('#myInput').val() == $('#myInput2').val()) {
+                $('#message').html("<i class='bx bxs-badge-check bx-tada' style='color:#5dc277;''>").css('color', 'green');;
+            } else 
+                $('#message').html("<i class='bx bxs-error bx-flashing' style='color:#f70404' ></i>").css('color', 'red');
+        });
+    </script>
+
+    
+</body>
+</html>

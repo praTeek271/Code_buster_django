@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <title>Login</title>
+    <style>
+        a{
+            text-decoration: none;
+            color: brown;
+        }
+    </style>
+</head>
+<body>
+    {% for message in messages %}
+    <div class="alert alert-{{message.tags}} alert-dissmissible fade show" role="alert">
+    <strong>Message: </strong>{{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-lable="Close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    {% endfor%}
+<br><br>
+{% if user.is_authenticated %}
+<h2>Hello ! , welcome to Code Busters<i class='bx bxs-badge-check bx-tada' style='color:#5dc277;''></i></h2>
+
+<h4>You are successfully logged in with your email</h4>
+<button type="submit"><a href="{% url 'signout' %}">SignOut</a></button>
+{% else %}
+Login Page
+<br><br><br>
+<button type="submit"><a href="{% url 'signup' %}">SignUp</a></button>
+<button type="submit"><a href="{% url 'signin' %}">SignIn</a></button>
+{% endif %}
+<br><br>
+
+    <script src="" async defer>
+        console.log('{{username}}')
+    </script>
+
+</body>
+</html>
