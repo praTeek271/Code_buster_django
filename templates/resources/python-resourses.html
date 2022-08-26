@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -1532,7 +1531,9 @@ img.avatar{
         popup.classList.toggle('blur');
       }
       {% if user.is_authenticated %}
-      alert("Login Sucessful");
+      {% else %}
+      alert('You are not authenticated');
+      location.replace("{% url 'main_homepage' %}");
       {% endif %}
   
     </script>
