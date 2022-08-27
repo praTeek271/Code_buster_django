@@ -34,7 +34,6 @@
 
         .inputbox{
             position: relative;
-            width: 250px;
             padding-top: 8px;
             padding-bottom: 10px;
             font-family:'Poppins', sans-serif;
@@ -43,7 +42,7 @@
         .inputbox input{
             width: 100%;
             padding: 10px;
-            border: 1px solid rgba(255,255,255,0.25);
+            border: 2px solid #90959a;
             border-radius: 5px;
             outline: none;
             color: rgba(255, 255, 255, 0.79);
@@ -58,7 +57,7 @@
             padding:10px;
             pointer-events:none;
             font-size:1em;
-            color:rgba(255, 255, 255, 0.25);
+            color:#90959a;
             text-transform:uppercase;
             transition: 0.5s;
             font-family:'Poppins', sans-serif;
@@ -79,7 +78,10 @@
             border: 1px solid #ea4c88;
         }
         .container{
-            border: 3px dashed #56606b5e;
+            border: 3px dashed #90959a;
+            width: 50%;
+            height: auto;
+            margin-bottom: 40px;
         }
         .sign-box{
             padding: 8px;
@@ -101,7 +103,7 @@
         color: #eee;
         font-weight: 700;
         position: relative;
-        width: 250px;
+        width: 100%;
         height: 45px;
         border-radius: 12px;
         margin-top: 8px;
@@ -118,14 +120,7 @@
 </head>
 <body>
     <!--------------------------------------- Sign Up -------------------------------------------------->
-    {% for message in messages %}
-    <div class="alert alert-{{message.tags}} alert-dissmissible fade show" role="alert">
-    <strong>Message: </strong>{{message}}
-    <button type="button" class="close" data-dismiss="alert" aria-lable="Close">
-    <span aria-hidden="true">&times;</span>
-    </button>
-    </div>
-    {% endfor%}
+    
     <h2 class="sign_heading">SignUp</h2>
     <div class="container">
         <div class="sign-box grid">
@@ -172,10 +167,11 @@
                 </div>
                     <span id='message'></span>
                 
-                <label for="show_pswd" class="inputbox">Show Password</label>
+                <label for="show_pswd" class="inputbox" style="color: #ea4c88;">Show Password</label>
                 <input type="checkbox" id="show_pswd" onclick="myFunction()">
                 <br>
-                <div class="sign_up">
+                <div class="sign_up" style="margin-left: 10%;
+                margin-right: 10%;;">
                     <input type="submit" value="Sign In">                    
                   </div>
             </form>

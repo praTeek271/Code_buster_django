@@ -165,9 +165,15 @@ img.avatar{
             </ul>
           </li>
           <!---------------------------- sign in feature  ------------------------------------------->
-          <li>
+          <li class="dropdown">
             {% if username is None and user.is_authenticated%}
-            <a class="getstarted" href="#" >{{user.username}}</a>
+            <a class="getstarted">{{user.username}}</a>
+            <ul>
+              <li><a href="{% url 'signout' %}">Sign Out</a></li>
+              <li ><a href="{% url 'signup' %}">Create New User</a></li>
+            </ul>
+              
+            </li>
             {% elif user.is_authenticated %}     
               <a class="getstarted" href="#" >{{username}}</a>
             {% else %}            
