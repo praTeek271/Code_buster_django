@@ -24,16 +24,10 @@ Go to the project directory
   cd code_buster_django
 ```
 
-Install dependencies
-
-```bash
-  npm install
-```
-
 Start the server
 
 ```bash
-  npm run start
+  python manage.py runserver
 ```
 
 
