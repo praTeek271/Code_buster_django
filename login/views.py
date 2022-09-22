@@ -50,21 +50,27 @@ def signup(request):
             messages.warning(request,"This email is already registered")
             return(redirect('main_homepage'))
         try:
+           
             myuser=User.objects.create_user(username,email,password,first_name=firstname,last_name=lastname)
         except:
             messages.warning(request,"An Error happened. Try Again")
         try:
-            ph=User.objects.get(username=username).account
-            ph.phoneno=phoneno
+            ph=User.objects.get(username=username)
+            print('user fetched')
+            pph=Account.objects.get(user=ph)
+            print('Account fetched')
+            pph.phoneno=phoneno
+            print('phone no added')
+            pph.save()
         except Exception as e:
             print(f"-------------->{e}")
-            pass
+            messages.warning(request,e)
 
         myuser.save()
 
-        messages.success(request,"Successfully logged in")
+        messages.success(request,f"{firstname}'s Account created Successfully !")
 
-        message="Welcome ,{0} to Code Busters,\nHello, Please join our discord comunity ".format(myuser.first_name)
+        message="Welcome ,{0} to Code Busters,\nHello, Please login to use our services ".format(myuser.first_name)
         messages.success(request,message)        
         return(redirect("main_homepage"))
 

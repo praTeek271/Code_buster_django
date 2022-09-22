@@ -9,9 +9,11 @@ class Account(models.Model):
     phoneno=models.IntegerField()
     image=models.ImageField(upload_to="accounts", blank=True, null=True )
 
-    def save(self,*args, **kwargs):
-        self.phoneno=9999999999
-        super().save(*args, **kwargs)
+    @classmethod
+    def create(self,phoneno ,*args):
+        self.phoneno=phoneno
+        
+        
 
     def __str__(self):
         return (self.user.username)
