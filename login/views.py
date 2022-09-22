@@ -1,13 +1,13 @@
 from django.shortcuts import redirect,render
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from .models import Account
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from code_buster.settings import ID,TOKEN
 # from django.core.mail import send_mail
 
 import os
-from twilio.rest import Client
 
 
 # Create your views here.
@@ -15,7 +15,7 @@ from twilio.rest import Client
 def login_home(request):
     return(render(request, 'login/index.html'))
 
-
+# add sign in feature
 def signin(request):
     if request.method =="POST":
         username=request.POST['username']
@@ -27,7 +27,8 @@ def signin(request):
             login(request,user)
             return(render(request,'code_busters/index.html',{'username':user.username,'id':user.id}))
         else:
-            messages.error(request,'Wrong Credentials')
+            messages.error(request,"Wrong Credentials")
+            # messages.error(request,'')
             return(redirect('main_homepage'))
 
     return(render(request, 'login/signin.html'))
@@ -46,28 +47,25 @@ def signup(request):
             return(redirect('main_homepage'))
 
         if User.objects.filter(email=email):
-            messages.error(request,"This email is already registered")
+            messages.warning(request,"This email is already registered")
             return(redirect('main_homepage'))
-
-        myuser=User.objects.create_user(username,email,password)
-        myuser.first_name=firstname
-        myuser.last_name=lastname
-        myuser.phoneno=phoneno
+        try:
+            myuser=User.objects.create_user(username,email,password,first_name=firstname,last_name=lastname)
+        except:
+            messages.warning(request,"An Error happened. Try Again")
+        try:
+            ph=User.objects.get(username=username).account
+            ph.phoneno=phoneno
+        except Exception as e:
+            print(f"-------------->{e}")
+            pass
 
         myuser.save()
 
         messages.success(request,"Successfully logged in")
-        
 
-        #<-------- sending Email ----------->
-        # subject="Welcome to Code Busters, WebLogin"
-        message="Welcome to Code Busters, WebLogin\nHello {0}\t!!\n Please join our discord comunity '''{1}'''".format(myuser.first_name,email_content)
-        # from_email=settings.EMAIL_HOST_USER
-        # to_email=myuser.email
-        to_phoneno=myuser.phoneno
-        # send_mail(subject,message,from_email,to_email,)
-        send_whatsapp(message,to_phoneno)
-
+        message="Welcome ,{0} to Code Busters,\nHello, Please join our discord comunity ".format(myuser.first_name)
+        messages.success(request,message)        
         return(redirect("main_homepage"))
 
     return(render(request, 'login/signup.html'))
@@ -78,30 +76,4 @@ def signout(request):
 
     return(redirect('main_homepage'))
     
-
-# # def send_whatsapp(msg,to_phoneno):
-# #     client = Client(ID, TOKEN)  
- 
-# #     message = client.messages.create( 
-# #                                 from_='whatsapp:+14155238886',  
-# #                                 body=msg,      
-# #                                 to='whatsapp:+91'+str(to_phoneno)
-# #                             ) 
-    
-# #     print(message.sid)
-     
-
-
-    
-    # message = Mail(
-    # from_email=from_email,
-    # to_emails=to_email,
-    # subject=subject,
-    # html_content=msg)
-
-    # sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY'))
-    # response = sg.send(message)
-    # print(response.status_code, response.body, response.headers)
-
-
 email_content='''\n\n<iframe src="https://discord.com/widget?id=789008145245536259&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe> '''

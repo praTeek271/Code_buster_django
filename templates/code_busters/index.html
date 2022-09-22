@@ -82,7 +82,20 @@
  }
  .popup h1{margin: 8px 36%; 
 background-color:white;}
- 
+.navbar .getstarted,
+.navbar .getstarted:focus {
+  background: #8a60eb6c;
+  padding: 8px 20px;
+  margin-left: 30px;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.navbar .getstarted:hover,
+.navbar .getstarted:focus:hover {
+  color: #000000;
+  background: #8a60ebad;
+}
 
 /*set the display image inside the container*/
 .imgcontainer{
@@ -157,14 +170,12 @@ img.avatar{
                 <ul>
                   <li><a href="{% url 'frontendR' %}">Front-End</a></li>
                   <li><a href="{% url 'backendR' %}">Back-End</a></li>
-                  <!-- <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li> -->
+                 
                 </ul>
               </li>
             </ul>
           </li>
-          <!---------------------------- sign in feature  ------------------------------------------->
+
           <li class="dropdown">
             {% if username is None and user.is_authenticated%}
             <a class="getstarted">{{user.username}}</a>
@@ -181,12 +192,22 @@ img.avatar{
             {% endif %}
 
           </li>
-          <!------------------------ XX  signin feature  XX ------------------------------------------>
+
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
-
+      
     </div>
+   
+   
+    {% for message in messages %}
+      <div class="alert alert-{{message.tags}} alert-dissmissible fade show" style="width: 50%;left: 50%;" role="alert">
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-lable="Close">
+      <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      {% endfor%}
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
@@ -392,6 +413,7 @@ img.avatar{
                   {% else %}
                   <a href="#" onClick="toggle_sign_in()"><h3>Android Development</h3></a>
                   {% endif %}
+                  
                 </div>
               </div>
 
@@ -547,6 +569,7 @@ img.avatar{
         <div class="row">
           <div class="col-lg-6">
             <!-- F.A.Q List 1-->
+
             <div class="accordion accordion-flush" id="faqlist1">
               <div class="accordion-item">
                 <h2 class="accordion-header">
@@ -641,8 +664,8 @@ img.avatar{
 
       </div>
 
-    </section><!-- End F.A.Q Section -->
-
+    </section>
+    <!-- End F.A.Q Section -->
 
 
     <!-- ======= Team Section ======= -->
@@ -656,123 +679,29 @@ img.avatar{
         </header>
 
         <div class="row gy-4">
-
+          {% for p in team %}
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="100">
             <div class="member">
               <div class="member-img">
-                <img src="{% static 'assets/img/team/prateek.jpg' %}" class="img-fluid" alt="">
+                
+                <img src="{{p.user_img.url}}" class="img-fluid" alt="">
+                
                 <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
+                  <a href="{{p.tweet_url}}"><i class="bi bi-twitter"></i></a>
+                  <a href="{{p.fb_url}}"><i class="bi bi-facebook"></i></a>
+                  <a href="{{p.insta_url}}"><i class="bi bi-instagram"></i></a>
+                  <a href="{{p.lnkdin_url}}"><i class="bi bi-linkedin"></i></a>
                 </div>
               </div>
               <div class="member-info">
-                <h4>Prateek Kumar Singh</h4>
-                <span>Chief Executive Officer</span>
-                <p>Velit aut quia fugit et et. Dolorum ea voluptate vel tempore tenetur ipsa quae aut. Ipsum exercitationem iure minima enim corporis et voluptate.</p>
+                <h4>{{p.name}}</h4>
+                <span>{{p.position}}</span>
+                <p>{{p.desc}}</p>
               </div>
             </div>
           </div>
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="200">
-            <div class="member">
-              <div class="member-img">
-                <img src="{% static 'assets/img/team/neha.jpg' %}" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Neha Ojha</h4>
-                <span>Product Manager</span>
-                <p>Quo esse repellendus quia id. Est eum et accusantium pariatur fugit nihil minima suscipit corporis. Voluptate sed quas reiciendis animi neque sapiente.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-            <div class="member">
-              <div class="member-img">
-                <img src="{% static 'assets/img/team/rudra.jpg' %}" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Rudra Pratap</h4>
-                <span>CTO</span>
-                <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt. Voluptates enim aut architecto porro aspernatur molestiae modi.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-            <div class="member">
-              <div class="member-img">
-                <img src="{% static 'assets/img/team/rudra.jpg' %}" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Rudra Pratap</h4>
-                <span>CTO</span>
-                <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt. Voluptates enim aut architecto porro aspernatur molestiae modi.</p>
-              </div>
-            </div>
-          </div>
-          
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="300">
-            <div class="member">
-              <div class="member-img">
-                <img src="{% static 'assets/img/team/rudra.jpg' %}" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Rudra Pratap</h4>
-                <span>CTO</span>
-                <p>Vero omnis enim consequatur. Voluptas consectetur unde qui molestiae deserunt. Voluptates enim aut architecto porro aspernatur molestiae modi.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up" data-aos-delay="400">
-            <div class="member">
-              <div class="member-img">
-                <img src="{% static 'assets/img/team/rishab.jpg' %}" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
-              <div class="member-info">
-                <h4>Rishab Satlani</h4>
-                <span>Accountant</span>
-                <p>Rerum voluptate non adipisci animi distinctio et deserunt amet voluptas. Quia aut aliquid doloremque ut possimus ipsum officia.</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
+          {% endfor %}
+         
 
     </section><!-- End Team Section -->
 
@@ -825,7 +754,7 @@ img.avatar{
           </div>
 
           <div class="col-lg-6">
-            <form action="forms/contact.php" method="post" class="php-email-form">
+            <form action="{% url 'signin'%}" method="post" class="php-email-form">
               <div class="row gy-4">
 
                 <div class="col-md-6">

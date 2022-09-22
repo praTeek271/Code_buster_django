@@ -298,7 +298,7 @@ section {
 
 .navbar .getstarted,
 .navbar .getstarted:focus {
-  background: #8960eb;
+  background: #8a60eb6c;
   padding: 8px 20px;
   margin-left: 30px;
   border-radius: 4px;
@@ -307,8 +307,8 @@ section {
 
 .navbar .getstarted:hover,
 .navbar .getstarted:focus:hover {
-  color: #fff;
-  background: #d7361d;
+  color: #000000;
+  background: #8a60ebad;
 }
 
 .navbar .dropdown ul {
