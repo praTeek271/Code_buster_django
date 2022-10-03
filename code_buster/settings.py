@@ -34,7 +34,7 @@ with open('code_buster\.env') as file:
 # SECRET_KEY = 'django-insecure-ed!4!u7wa4+90fivg_bqmqi(ii+sdfps7itml=ultto@$a9&i+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
