@@ -1,0 +1,10 @@
+pillow==9.2.0
+crypto==1.4.1
+cryptography==37.0.4
+Django==4.0.6
+django-jazzmin==2.5.0
+Jinja2==3.1.2
+urllib3==1.26.10
+virtualenv==20.16.2
+Werkzeug==2.1.2
+whitenoise==6.2.0
