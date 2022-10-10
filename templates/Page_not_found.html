@@ -471,7 +471,7 @@ button {
   }
 }
 @media (max-width: 750px) {
-  body, html, {
+  body, html{
     max-height: 100vh;
   }
    .error__content {
@@ -485,7 +485,7 @@ button {
     padding-bottom: 100px;
     height: 100vh;
   }
-  }
+
 @media (max-width: 650px) {
   .message__title {
     font-size: 36px;
@@ -528,8 +528,7 @@ button {
         <div class="starfourth"></div>
         <div class="starfifth"></div>
       </div>
-      <!--Dust particle end--->
-      
+         
       
       <div class="lamp__wrap">
         <div class="lamp">
@@ -541,12 +540,13 @@ button {
           <div class="light"></div>
         </div>
       </div>
-      <!-- END Lamp -->
+    
       <section class="error">
         <!-- Content -->
         <div class="error__content">
           <div class="error__message message">
             <h1 class="message__title">Page Not Found</h1>
+            <h2><a href="{% url 'main_homepage'%}" style="position: relative;color: #00ffff80;font-weight: 500;font-size: 100%;font-family: cursive;" >Lets go back to Homepage</a></h2>
             <p class="message__text">We're sorry, the page you were looking for isn't found here. The link you followed may either be broken or no longer exists. Please try again, or take a look at our.</p>
           </div>
           

@@ -9,25 +9,138 @@
   <meta content="" name="description">
 
   <meta content="" name="keywords">
-
+  {% load static %}
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/remixicon/remixicon.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+  <style>
+    .feadback-btn{
+      background-color: #8960eb57;
+     }
+     .feadback-btn:hover{
+      background-color:#8a60eb98 ;
+      cursor: pointer;
+      border: none;
+     }
+     .signin{
+      filter: blur(20px);
+      pointer-events: none;
+      user-select: none;
+    }
+    #popup{
+        position:fixed;
+        top:40%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        width: auto;
+        padding: 60px;
+        box-shadow:0 5px 30px rgba(0, 0, 0, 30);
+        background: #fefefe;
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.5s;
+    }
+  
+    #popup.blur{
+      top:50%;
+      visibility: visible;
+      opacity: 1;
+      transition: 0.5s;
+     
+    }
+    .navbar .getstarted,
+    .navbar .getstarted:focus {
+      background: #8a60eb6c;
+      padding: 8px 20px;
+      margin-left: 30px;
+      border-radius: 4px;
+      color: #fff;
+    }
+    
+    .navbar .getstarted:hover,
+    .navbar .getstarted:focus:hover {
+      color: #000000;
+      background: #8a60ebad;
+    }
+    /* ---------------------------------- */
+   .popup .container{
+      display: grid;
+      grid-template-rows: repeat(auto-fill,minmax(20px,1fr));
+      grid-gap: 50px;
+   }
+  
+   .signll{
+    width: 100%; 
+    padding: 12px 20px; 
+    margin: 8px 0; 
+    display: inline-block; 
+    border: 1px solid #ccc; 
+    box-sizing: border-box;
+   }
+   .loginbtn{
+    background-color:#94cc33
+   }
+   .popup h1{margin: 8px 36%; 
+    background-color:white;}
+   
+  
+    /*set the display image inside the container*/
+    .imgcontainer{
+        text-align: center;
+        margin: 24px 0 12px 0;
+        position: relative;
+    }
+    /*set image properties*/
+    img.avatar{
+        width: 30%;
+        height:auto;
+        border-radius: 50%;
+        border: 8px solid #edebec;
+    }
+    .inner-area img{
+        height: 100%;
+        width: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    
+    .popup .modal-content{
+        background-color: #fefefe;
+        margin:  5% auto 15% auto;  
+    
+        border: 1px solid #888;
+        width: 400px;
+        border: 6px solid #edebec;
+    }
+      .popup button{
+        background-color: #4caf50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        cursor: pointer;
+        width: 100%;
+    }
+    /* set a hover effect for the button*/
+    .popup  button:hover{
+        opacity: 0.8;
+    }
+  
+  </style>
 </head>
 
 <body>
@@ -36,43 +149,67 @@
   <header id="header" class="header fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="assets/img/logo.png" alt="">
+      <a href="{% url 'main_homepage' %}" class="logo d-flex align-items-center">
+        <img src="{% static 'assets/img/logo.png' %}" alt="">
         <span>CodeBuster</span>
       </a>
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto" href="/FlexStart/index.html">Home</a></li>
+          <li><a class="nav-link scrollto active" href="{% url 'main_homepage' %}">Home</a></li>
           <!-- <li><a href="#">About Us</a></li> -->
-          <li><a class="nav-link scrollto" href="/FlexStart/index.html#features">Resourses</a></li>
-          <li><a class="nav-link scrollto" href="/FlexStart/index.html#recent-blog-posts">Community</a></li>
-          <li><a class="nav-link scrollto active" href="#">Opportunities</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'main_homepage' %}#features">Resourses</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'main_homepage' %}#recent-blog-posts">Community</a></li>
+          <li><a class="nav-link scrollto" href="{% url 'career' %}">Opportunities</a></li>
           <!-- <li><a class="nav-link scrollto" href="#about">Our Courses</a></li> -->
           <li class="dropdown"><a href="#"><span>Our Courses</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="#">Java</a></li>
-              <li><a href="#">Python</a></li>
-              <li><a href="#">C++</a></li>
-              <li class="dropdown"><a href="#"><span>Web Development</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Front-End</a></li>
-                  <li><a href="#">Back-End</a></li>
-                  <!-- <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li> -->
+                <li><a href="{% url 'javaR' %}">Java</a></li>
+                <li><a href="{% url 'pythonR' %}">Python</a></li>
+                <li><a href="{% url 'C_langR' %}">C++</a></li>
+                <li class="dropdown"><a href="#"><span>Web Development</span> <i class="bi bi-chevron-right"></i></a>
+                  <ul>
+                    <li><a href="{% url 'frontendR' %}">Front-End</a></li>
+                    <li><a href="{% url 'backendR' %}">Back-End</a></li>
                 </ul>
               </li>
             </ul>
           </li>
-          
-          <li><a class="getstarted scrollto" href="#">Sign In </a></li>
+<!------------------------ signin feature  ------------------------------------------>
+
+          <li class="dropdown">
+            {% if username is None and user.is_authenticated%}
+            <a class="getstarted">{{user.username}}</a>
+            <ul>
+              <li><a href="{% url 'signout' %}">Sign Out</a></li>
+              <li ><a href="{% url 'signup' %}">Create New User</a></li>
+            </ul>
+              
+            </li>
+            {% elif user.is_authenticated %}     
+              <a class="getstarted" href="#" >{{username}}</a>
+            {% else %}            
+            <a class="getstarted" href="#" onClick="toggle_sign_in()">Sign In </a>
+            {% endif %}
+
+          </li>
+
+<!------------------------ XX  signin feature  XX ------------------------------------------>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
     </div>
+    {% for message in messages %}
+      <div class="alert alert-{{message.tags}} alert-dissmissible fade show" style="width: 50%;left: 50%;" role="alert">
+      {{message}}
+      <button type="button" class="close" data-dismiss="alert" aria-lable="Close">
+      <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      {% endfor%}
   </header><!-- End Header -->
+
 
   <!-- ======= Hero Section ======= -->
   <section id="hero" class="hero d-flex align-items-center">
@@ -94,8 +231,8 @@
           </div>
         </div>
         <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-          <img src="assets/img/opportunities-homeimg-1.png" class="img-fluid" alt="">
-          <img src="assets/img/opportunities-homeimg-2.png" class="img-fluid opportunity-home-element animation-2" alt="">
+          <img src="{% static 'assets/img/opportunities-homeimg-1.png' %}" class="img-fluid" alt="">
+          <img src="{% static 'assets/img/opportunities-homeimg-2.png' %}" class="img-fluid opportunity-home-element animation-2" alt="">
         </div>
       </div>
     </div>
@@ -106,83 +243,27 @@
 
 
     <section id="values" class="values">
-
         <div class="container" data-aos="fade-up">
-  
+        {% for events,category in all_evnt_content %}
           <header class="section-header">
-            <p>Internships</p>
+            <p>{{category}}s</p>
             <br>
             <h2>Now it's time to implement things in office..</h2>
           </header>
   
           <div class="row">
-  
+            {% for res in events %}
             <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
               <div class="box">
-                <img src="assets/img/opportunities/amazon-hiring.jpg" class="img-fluid" alt="">
-                <h3>Amazon Internship - 2022</h3>
+                <img src="{{res.thumbnail_img.url}}" class="img-fluid" alt="">
+                <h3>{{res.title}}</h3>
               </div>
             </div>
-  
-            <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
-              <div class="box">
-                <img src="assets/img/opportunities/microsoft-hiring.png" class="img-fluid" alt="">
-                <h3>Microsoft Internship - 2022</h3>
-              </div>
-            </div>
-  
-            <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
-              <div class="box">
-                <img src="assets/img/opportunities/php-intern.png" class="img-fluid" alt="">
-                <h3>Back-End Internship</h3>
-              </div>
-            </div>
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-              <div class="box">
-                <img src="assets/img/opportunities/amazon-hiring.jpg" class="img-fluid" alt="">
-                <h3>Amazon Internship - 2022</h3>
-              </div>
-            </div>
-  
-            <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
-              <div class="box">
-                <img src="assets/img/opportunities/microsoft-hiring.png" class="img-fluid" alt="">
-                <h3>Microsoft Internship - 2022</h3>
-              </div>
-            </div>
-  
-            <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
-              <div class="box">
-                <img src="assets/img/opportunities/php-intern.png" class="img-fluid" alt="">
-                <h3>Back-End Internship</h3>
-              </div>
-            </div>
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-              <div class="box">
-                <img src="assets/img/opportunities/amazon-hiring.jpg" class="img-fluid" alt="">
-                <h3>Amazon Internship - 2022</h3>
-              </div>
-            </div>
-  
-            <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="400">
-              <div class="box">
-                <img src="assets/img/opportunities/microsoft-hiring.png" class="img-fluid" alt="">
-                <h3>Microsoft Internship - 2022</h3>
-              </div>
-            </div>
-  
-            <div class="col-lg-4 mt-4 mt-lg-0" data-aos="fade-up" data-aos-delay="600">
-              <div class="box">
-                <img src="assets/img/opportunities/php-intern.png" class="img-fluid" alt="">
-                <h3>Back-End Internship</h3>
-              </div>
-            </div>
-  
+            {% endfor %}
           </div>
-  
+          {% endfor %}
         </div>
-  
-      </section>
+    </section>
 
       <!-- Events end -->
 
@@ -193,61 +274,63 @@
 
 
 
-   <!-- ======= F.A.Q Section ======= -->
-   <section id="faq" class="faq">
+   
+   
+      <!-- ======= F.A.Q Section ======= -->
+    <section id="faq" class="faq">
 
-    <div class="container" data-aos="fade-up">
+      <div class="container" data-aos="fade-up">
 
-      <header class="section-header">
-        <h2>F.A.Q</h2>
-        <p>Frequently Asked Questions</p>
-      </header>
+        <header class="section-header">
+          <h2>F.A.Q</h2>
+          <p>Frequently Asked Questions</p>
+        </header>
 
-      <div class="row">
-        <div class="col-lg-6">
-          <!-- F.A.Q List 1-->
-          <div class="accordion accordion-flush" id="faqlist1">
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-1">
-                  Non consectetur a erat nam at lectus urna duis?
-                </button>
-              </h2>
-              <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
-                <div class="accordion-body">
-                  Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
+        <div class="row">
+          <div class="col-lg-6">
+            <!-- F.A.Q List 1-->
+            <div class="accordion accordion-flush" id="faqlist1">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-1">
+                    Non consectetur a erat nam at lectus urna duis?
+                  </button>
+                </h2>
+                <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                  <div class="accordion-body">
+                    Feugiat pretium nibh ipsum consequat. Tempus iaculis urna id volutpat lacus laoreet non curabitur gravida. Venenatis lectus magna fringilla urna porttitor rhoncus dolor purus non.
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-2">
-                  Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque?
-                </button>
-              </h2>
-              <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
-                <div class="accordion-body">
-                  Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-2">
+                    Feugiat scelerisque varius morbi enim nunc faucibus a pellentesque?
+                  </button>
+                </h2>
+                <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                  <div class="accordion-body">
+                    Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-3">
-                  Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi?
-                </button>
-              </h2>
-              <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
-                <div class="accordion-body">
-                  Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq-content-3">
+                    Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi?
+                  </button>
+                </h2>
+                <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
+                  <div class="accordion-body">
+                    Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
+                  </div>
                 </div>
               </div>
-            </div>
 
+            </div>
           </div>
-        </div>
 
         <div class="col-lg-6">
 
@@ -302,231 +385,204 @@
 
   </section><!-- End F.A.Q Section -->
 
-
-
-
-
-
-      <!-- ======= Contact Section ======= -->
-      <section id="contact" class="contact">
-
-        <div class="container" data-aos="fade-up">
   
-          <header class="section-header">
-            <h2>Contact</h2>
-            <p>Contact Us</p>
-          </header>
-  
+  <section id="contact" class="contact">
+
+    <div class="container" data-aos="fade-up">
+
+      <header class="section-header">
+        <h2>Contact</h2>
+        <p>Contact Us</p>
+      </header>
+
+      <div class="row gy-4">
+
+        <div class="col-lg-6">
+
           <div class="row gy-4">
-  
-            <div class="col-lg-6">
-  
-              <div class="row gy-4">
-                <div class="col-md-6">
-                  <div class="info-box">
-                    <i class="bi bi-geo-alt"></i>
-                    <h3>Address</h3>
-                    <p>A108 Adam Street,<br>New York, NY 535022</p>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="info-box">
-                    <i class="bi bi-telephone"></i>
-                    <h3>Call Us</h3>
-                    <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="info-box">
-                    <i class="bi bi-envelope"></i>
-                    <h3>Email Us</h3>
-                    <p>info@example.com<br>contact@example.com</p>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="info-box">
-                    <i class="bi bi-clock"></i>
-                    <h3>Open Hours</h3>
-                    <p>Monday - Friday<br>9:00AM - 05:00PM</p>
-                  </div>
-                </div>
-              </div>
-  
-            </div>
-  
-            <div class="col-lg-6">
-              <form action="forms/contact.php" method="post" class="php-email-form">
-                <div class="row gy-4">
-  
-                  <div class="col-md-6">
-                    <input type="text" name="name" class="form-control" placeholder="Your Name" required>
-                  </div>
-  
-                  <div class="col-md-6 ">
-                    <input type="email" class="form-control" name="email" placeholder="Your Email" required>
-                  </div>
-  
-                  <div class="col-md-12">
-                    <input type="text" class="form-control" name="subject" placeholder="Subject" required>
-                  </div>
-  
-                  <div class="col-md-12">
-                    <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
-                  </div>
-  
-                  <div class="col-md-12 text-center">
-                    <div class="loading">Loading</div>
-                    <div class="error-message"></div>
-                    <div class="sent-message">Your message has been sent. Thank you!</div>
-  
-                    <button type="submit">Send Message</button>
-                  </div>
-  
-                </div>
-              </form>
-  
-            </div>
-  
-          </div>
-  
-        </div>
-  
-      </section><!-- End Contact Section -->
-  
-    </main><!-- End #main -->
-  
-    <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer">
-  
-      <div class="footer-newsletter">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-12 text-center">
-              <h4>Our Newsletter</h4>
-              <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-            </div>
-            <div class="col-lg-6">
-              <form action="" method="post">
-                <input type="email" name="email"><input type="submit" value="Subscribe">
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-  
-      <div class="footer-top">
-        <div class="container">
-          <div class="row gy-4">
-            <div class="col-lg-5 col-md-12 footer-info">
-              <a href="index.html" class="logo d-flex align-items-center">
-                <img src="assets/img/logo.png" alt="">
-                <span>CodeBuster</span>
-              </a>
-              <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
-              <div class="social-links mt-3">
-                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+            <div class="col-md-6">
+              <div class="info-box">
+                <i class="bi bi-geo-alt"></i>
+                <h3>Address</h3>
+                <p>A108 Adam Street,<br>New York, NY 535022</p>
               </div>
             </div>
-  
-            <div class="col-lg-2 col-6 footer-links">
-              <h4>Useful Links</h4>
-              <ul>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Home</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">About us</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
-              </ul>
+            <div class="col-md-6">
+              <div class="info-box">
+                <i class="bi bi-telephone"></i>
+                <h3>Call Us</h3>
+                <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
+              </div>
             </div>
-  
-            <div class="col-lg-2 col-6 footer-links">
-              <h4>Our Courses</h4>
-              <ul>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Java</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Python</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Web development</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">C++</a></li>
-                <li><i class="bi bi-chevron-right"></i> <a href="#">Graphic Design</a></li>
-              </ul>
+            <div class="col-md-6">
+              <div class="info-box">
+                <i class="bi bi-envelope"></i>
+                <h3>Email Us</h3>
+                <p>info@example.com<br>contact@example.com</p>
+              </div>
             </div>
-  
-            <!-- <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-              <h4>Contact Us</h4>
-              <p>
-                A108 Adam Street <br>
-                New York, NY 535022<br>
-                United States <br><br>
-                <strong>Phone:</strong> +1 5589 55488 55<br>
-                <strong>Email:</strong> info@example.com<br>
-              </p>
-  
-            </div> -->
-  
+            <div class="col-md-6">
+              <div class="info-box">
+                <i class="bi bi-clock"></i>
+                <h3>Open Hours</h3>
+                <p>Monday - Friday<br>9:00AM - 05:00PM</p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-  
-      <div class="container">
-        <div class="copyright">
-          &copy; Copyright <strong><span>CodeBuster</span></strong>. All Rights Reserved
+
+        <div class="col-lg-6">
+          <!-- feadback form -->
+        <form method="POST">
+          {% csrf_token %}
+          <div class="row gy-4">
+            <div class="col-md-6">
+              <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
+            </div>
+            <div class="col-md-6 ">
+              <input type="email" id="email" class="form-control" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="col-md-12">
+              <input type="text" id="subject" class="form-control" name="subject" placeholder="Subject" required>
+            </div>
+            <div class="col-md-12">
+              <textarea class="form-control" id="message" name="message" placeholder="Leave a message" "></textarea>                </div>
+
+              <button type="submit" class="btn feadback-btn" value="OK">Post </button>
+            </div>
+
+          </div>
+        </form>
+
         </div>
-        <div class="credits">
-          <!-- All the links in the footer should remain intact. -->
-          <!-- You can delete the links only if you purchased the pro version. -->
-          <!-- Licensing information: https://bootstrapmade.com/license/ -->
-          <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/flexstart-bootstrap-startup-template/ -->
-          <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
-        </div>
       </div>
-    </footer><!-- End Footer -->
+    </div>
+  </section><!-- End Contact Section -->
+
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+<footer id="footer" class="footer">
+
+  <div class="footer-top">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-info">
+          <a href="{url 'main_homepage'}" class="logo d-flex align-items-center">
+            <img src="{% static 'assets/img/logo.png' %}" alt="">
+            <span>CodeBuster</span>
+          </a>
+          <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+          <div class="social-links mt-3">
+            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><i class="bi bi-chevron-right"></i> <a href="{% url 'main_homepage' %}">Home</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{% url 'main_homepage' %}">About us</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Services</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Terms of service</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="#">Privacy policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Our Courses</h4>
+          <ul>
+            <li><i class="bi bi-chevron-right"></i> <a href="{% url 'javaR' %}">Java</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{% url 'pythonR' %}">Python</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{% url 'backendR' %}">Web development</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{% url 'C_langR' %}">C++</a></li>
+            <li><i class="bi bi-chevron-right"></i> <a href="{% url 'main_homepage' %}">Graphic Design</a></li>
+          </ul>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="copyright">
+      &copy; Copyright <strong><span>CodeBuster</span></strong>. All Rights Reserved
+    </div>
+    
+  </div>
+</footer><!-- End Footer -->
+
+<!-- arrow UP key -->
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+</div>
+
+<div id="popup">
+  <form action="{% url 'signin'%}" method="POST" class="modal-content animate">
+    {% csrf_token %}
+  <div class="imgcontainer"> 
+    <a class="getstarted" href="#" onClick="toggle_sign_in()"><i class='bx bx-cross bx-tada bx-rotate-270' 
+      style=" 
+        font-size: 20px;  
+        position: fixed;
+        display: flex;
+        align-items: flex-end;
+        left: 80%;
+        top: 4%;
+        border: 3px dashed #b1a5d4;
+        border-radius: 50%;">
+        </i> </a>
+        <img src= "{% static 'assets/img/team/user.png' %}" alt="Avatar" class="avatar"> 
+  </div> 
+
+    <label><b>Username</b></label> 
+    <input type="text" class="signll" placeholder="Enter Username" name="username" required> 
+
+    <label><b>Password</b></label> 
+    <input type="password" class="signll" placeholder="Enter Password" name="password" required> 
+
+    <button type="submit" class="signll loginbtn" value="Sign In">Login</button> 
+    <div class="signup" style="display: grid;grid-template-columns: max-content;">
+      <span>
+        Create an account <a href="{% url 'signup' %}">Sign Up</a>
+      </span>
+    </div>
+ </form> 
+
+
+</div>
+
+<!-- Vendor JS Files -->
+<script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+<script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+<script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+<script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+<!-- Template Main JS File -->
+<script src="{% static 'assets/js/main.js' %}"></script>
+
+<script>
+  // sign in pop over
   
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-  
-    <!-- Vendor JS Files -->
-    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-    <script src="assets/vendor/aos/aos.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
-  
-    <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
-  
-  </body>
-  
-  </html>
+  function toggle_sign_in(){
+    var blur =document.getElementById('blur');
+    blur.classList.toggle('signin');
+    var popup =document.getElementById('popup');
+    popup.classList.toggle('blur');
+  }
+  {% if user.is_authenticated %}
+  {% else %}
+  alert('You are not authenticated . Redirected to Home Page');
+  location.replace("{% url 'main_homepage' %}");
+  {% endif %}
 
+</script>
+</body>
 
+</html>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  

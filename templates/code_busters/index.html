@@ -138,7 +138,14 @@ img.avatar{
  .popup  button:hover{
      opacity: 0.8;
  }
-
+ .feadback-btn{
+  background-color: #8960eb57;
+ }
+ .feadback-btn:hover{
+  background-color:#8a60eb98 ;
+  cursor: pointer;
+  border: none;
+ }
   </style>
 </head>
 
@@ -754,31 +761,23 @@ img.avatar{
           </div>
 
           <div class="col-lg-6">
-            <form action="{% url 'signin'%}" method="post" class="php-email-form">
+            <!-- feadback form -->
+            <form method="POST">
+              {% csrf_token %}
               <div class="row gy-4">
-
                 <div class="col-md-6">
-                  <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                  <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
                 </div>
-
                 <div class="col-md-6 ">
-                  <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+                  <input type="email" id="email" class="form-control" name="email" placeholder="Your Email" required>
                 </div>
-
                 <div class="col-md-12">
-                  <input type="text" class="form-control" name="subject" placeholder="Subject" required>
+                  <input type="text" id="subject" class="form-control" name="subject" placeholder="Subject" required>
                 </div>
-
                 <div class="col-md-12">
-                  <textarea class="form-control" name="message" rows="6" placeholder="Message" required></textarea>
-                </div>
+                  <textarea class="form-control" id="message" name="message" placeholder="Leave a message" "></textarea>                </div>
 
-                <div class="col-md-12 text-center">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
-                  <div class="sent-message">Your message has been sent. Thank you!</div>
-
-                  <button type="submit">Send Message</button>
+                  <button type="submit" class="btn feadback-btn" value="OK">Post </button>
                 </div>
 
               </div>
