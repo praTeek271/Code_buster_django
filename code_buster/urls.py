@@ -31,4 +31,5 @@ urlpatterns = [
 
 
 handler404='resources.views.handle404'
+handler403='resources.views.handle403'
 handler500='resources.views.handle500'

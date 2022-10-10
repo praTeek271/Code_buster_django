@@ -3,6 +3,8 @@ from django.db import models
 # Create your models here.
 subject_choice=((('Python', 'Python'), ('Java', 'Java'),('C++', 'C++'),('Front-End', 'Front-End'),('Back-End', 'Back-End'),('Others','Others'),))
 img_choice=((('\_@Cache\doc-resourses.png',"doc_resource"),('\_@Cache\video-resourses.png',"vedio_resource"),('\_@Cache\winged-sword_38006.png','none')))
+faq_category=((('Resource',"Resources"),('Internship',"Internship"),('none','none'),))
+evnt_category=((('Opportunity',"Opportunity"),('Internship',"Internship"),('none','none'),))
 
 class Team(models.Model):
     name=models.CharField(max_length=200)
@@ -13,7 +15,7 @@ class Team(models.Model):
     insta_url=models.URLField(max_length=500,null=True, blank=True)
     tweet_url=models.URLField(max_length=500,null=True, blank=True)
     fb_url=models.URLField(max_length=500,null=True, blank=True)
-
+    show=models.BooleanField()
     def __str__(self):
         return(f'''{self.name}   --    {(self.position).upper()}''')
 
@@ -28,16 +30,18 @@ class FeedBack(models.Model):
     date=models.DateField()
 
     def __str__(self):
-        return(self.subject)
+        return(f"{self.subject}")
 
 
 class FAQ(models.Model):
     que=models.CharField(max_length=800)
     ans=models.CharField(max_length=1000)
+    category=models.CharField(("Cateeegory"),choices=faq_category, max_length=50,default='none')
+    show=models.BooleanField()
 
 
     def __str__(self):
-        return (self.que)
+        return (f"{self.que}---|--{self.category}")
 
 
 class Resourses(models.Model):
@@ -55,4 +59,9 @@ class Resourses(models.Model):
             shown="no"
         return(f"{self.name}-:-{self.category}-:-{self.subject}")
     
-    
+
+class event(models.Model):
+    title=models.CharField(max_length=200)
+    category=models.CharField(choices=evnt_category,max_length=200,default="Others")
+    thumbnail_img=models.ImageField(upload_to="events")
+    show=models.BooleanField()
