@@ -29,7 +29,11 @@ urlpatterns = [
     path('',views.index, name="main_homepage"),
 ]
 
-
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL,document_root=settings.STATICFILES_DIRS)
+    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+    
+    
 handler404='resources.views.handle404'
 handler403='resources.views.handle403'
 handler500='resources.views.handle500'
