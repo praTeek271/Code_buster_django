@@ -212,6 +212,8 @@ section {
   color: #19181a;
   font-family: "Nunito", sans-serif;
   margin-top: 3px;
+  position: absolute;
+  margin-left: 156px;
 }
 
 /*--------------------------------------------------------------
