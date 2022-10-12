@@ -6,7 +6,8 @@ from code_buster.views import feedBackUs
 
 # Create your views here.
 def res_categorizer(sub):
-    res_data=Resourses.objects.all().filter(subject='Java').filter(show='True')
+    res_data=Resourses.objects.all().filter(subject=sub).filter(show='True')
+    print(len(res_data))
     all_content=[]
     categories=[]
     cat=[]
@@ -22,7 +23,7 @@ def res_categorizer(sub):
         all_content.append([tmp_list,i])
 
     
-    # print(all_content)
+    print(all_content)
     return(all_content)
 
 
