@@ -198,8 +198,11 @@ section {
 }
 
 .header .logo img {
-  max-height: 40px;
+  max-height: 206px;
   margin-right: 6px;
+  margin-top: 38px;
+  display: flex;
+  position: absolute;
 }
 
 .header .logo span {
